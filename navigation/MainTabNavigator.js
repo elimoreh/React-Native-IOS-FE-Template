@@ -33,7 +33,7 @@ const LinksStack = createStackNavigator({
 });
 
 LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
+  tabBarLabel: 'Tab2',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -47,7 +47,7 @@ const SettingsStack = createStackNavigator({
 });
 
 SettingsStack.navigationOptions = {
-  tabBarLabel: 'Settings',
+  tabBarLabel: 'Tab3',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -56,8 +56,22 @@ SettingsStack.navigationOptions = {
   ),
 };
 
-export default createBottomTabNavigator({
+const bottomNav = createBottomTabNavigator({
   HomeStack,
   LinksStack,
   SettingsStack,
+},
+{
+  tabBarOptions: {
+    labelStyle: {
+      fontSize: 14,
+    },
+    style: {
+      backgroundColor: 'black',
+    },
+  },
 });
+
+console.log(bottomNav);
+
+export default bottomNav;
