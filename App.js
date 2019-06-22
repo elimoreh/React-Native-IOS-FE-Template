@@ -2,14 +2,15 @@ import { AppLoading } from 'expo';
 import { Asset } from 'expo-asset';
 import * as Font from 'expo-font';
 import React, { useState } from 'react';
+import { Provider } from 'react-redux';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-
+import spaceMono from './assets/fonts/SpaceMono-Regular.ttf';
 import AppNavigator from './navigation/AppNavigator';
+import store from './redux/store';
 
-export default function App(props) {
+function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
-
   if (!isLoadingComplete && !props.skipLoadingScreen) {
     return (
       <AppLoading
@@ -28,6 +29,15 @@ export default function App(props) {
   }
 }
 
+export default function ReduxApp(props) {
+  console.disableYellowBox = true;
+  return (
+    <Provider store={store}>
+      <App {...props} />
+    </Provider>
+  );
+}
+
 async function loadResourcesAsync() {
   await Promise.all([
     Asset.loadAsync([
@@ -39,7 +49,6 @@ async function loadResourcesAsync() {
       ...Ionicons.font,
       // We include SpaceMono because we use it in HomeScreen.js. Feel free to
       // remove this if you are not using it in your app
-      'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
     }),
   ]);
 }
@@ -57,6 +66,6 @@ function handleFinishLoading(setLoadingComplete) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#808088',
   },
 });
